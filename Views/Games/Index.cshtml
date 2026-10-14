@@ -1,0 +1,48 @@
+@model IEnumerable<ASP_Core.Models.Game>
+@{
+	ViewData["Title"] = "Game Library";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+	<h1>Game Library</h1>
+	<div>
+		<a class="btn btn-success" asp-action="Create">Add Game</a>
+		<a class="btn btn-secondary ms-2" asp-action="Completed">Completed</a>
+	</div>
+</div>
+
+@if (!string.IsNullOrEmpty(TempData["Message"] as string))
+{
+	<div class="alert alert-info">@TempData["Message"]</div>
+}
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Genre</th>
+			<th>Rating</th>
+			<th>Completed</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	@foreach(var g in Model)
+	{
+		<tr>
+			<td>@g.Title</td>
+			<td>@g.Genre</td>
+			<td>@String.Format("{0:0.0}", g.Rating)</td>
+			<td>@(g.IsCompleted ? "Yes" : "No")</td>
+			<td>
+				<a class="btn btn-sm btn-primary" asp-action="Details" asp-route-id="@g.Id">Details</a>
+				<form asp-action="Delete" method="post" class="d-inline ms-1">
+					<input type="hidden" name="id" value="@g.Id" />
+					<button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Видалити гру?');">Delete</button>
+					@Html.AntiForgeryToken()
+				</form>
+			</td>
+		</tr>
+	}
+	</tbody>
+</table>

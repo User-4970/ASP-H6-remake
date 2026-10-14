@@ -1,0 +1,36 @@
+@model IEnumerable<ASP_Core.Models.Product>
+@{
+	ViewData["Title"] = "Products";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+	<h1>Каталог товарів</h1>
+	<a class="btn btn-success" asp-action="Create">Додати товар</a>
+</div>
+
+<form class="row g-2 mb-4" method="get" asp-action="Search">
+	<div class="col-auto">
+		<input type="text" name="name" class="form-control" placeholder="Пошук по назві" />
+	</div>
+	<div class="col-auto">
+		<button type="submit" class="btn btn-outline-primary">Пошук</button>
+	</div>
+</form>
+
+<div class="row">
+@foreach (var p in Model)
+{
+	<div class="col-md-4">
+		<div class="card mb-4 shadow-sm">
+			<img src="https://via.placeholder.com/600x300?text=@p.Name" class="card-img-top" alt="@p.Name">
+			<div class="card-body">
+				<h5 class="card-title">@p.Name</h5>
+					<p class="card-text">Ціна: @String.Format("{0:N2} €", p.Price)</p>
+				<div class="d-flex justify-content-between align-items-center">
+					<a asp-controller="Product" asp-action="Details" asp-route-id="@p.Id" class="btn btn-primary">Переглянути</a>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+</div>

@@ -1,0 +1,22 @@
+@model ASP_Core.Models.Product
+@{
+	ViewData["Title"] = Model != null ? Model.Name : "Товар";
+}
+
+@if (!string.IsNullOrEmpty(TempData["Message"] as string))
+{
+	<div class="alert alert-success">@TempData["Message"]</div>
+}
+
+@if (Model == null)
+{
+	<h1>Товар не знайдений</h1>
+	<p><a asp-controller="Product" asp-action="Index">Назад до списку</a></p>
+}
+else
+{
+	<h1>@Model.Name</h1>
+	<p>Ціна: @String.Format("{0:N2} €", Model.Price)</p>
+	<p>Опис: @Model.Description</p>
+	<p><a asp-controller="Product" asp-action="Index">Назад до списку</a></p>
+}

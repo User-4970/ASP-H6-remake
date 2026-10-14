@@ -1,0 +1,14 @@
+@{
+	ViewData["Title"] = "Пошук постів";
+}
+
+<h1>Пошук по автору</h1>
+
+<form asp-action="Search" method="post" class="row g-2">
+	<div class="col-auto">
+		<input type="text" name="author" class="form-control" placeholder="Ім'я автора" />
+	</div>
+	<div class="col-auto">
+		<button type="submit" class="btn btn-primary">Пошук</button>
+	</div>
+</form>
